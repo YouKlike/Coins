@@ -1,0 +1,7 @@
+name: PlayerData
+version: ${project.version}
+main: Cookies.Main
+api-version: 1.17
+commands:
+  coins:
+    description: ""

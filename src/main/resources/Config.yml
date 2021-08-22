@@ -1,0 +1,7 @@
+
+reloadMessage: "&7<&6硬幣系統&7> 插件已成功重讀"
+coinsAmountMessage: "&7<&6硬幣系統&7> &f你當前的硬幣數量為:&a {COINS}"
+setMessage: "&7<&6硬幣系統&7> &f你成功把 &a{PLAYER} &f的硬幣數量設置為&a {COINS}"
+resetMessage: "&7<&6硬幣系統&7> &f你重製了 &a{PLAYER}&f 的硬幣數量"
+
+helpMessage: "&7<&6硬幣系統&7> &f用法: &7/ec , /ec set <PlayerID> <Coins> , /ec resSet <PlayerID> , /ec reload"

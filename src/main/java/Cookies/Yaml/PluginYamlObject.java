@@ -11,7 +11,7 @@ import java.io.IOException;
 public class PluginYamlObject {
 
     protected File file;
-    protected YamlConfiguration configuration;
+    protected YamlConfiguration configuration = new YamlConfiguration();
 
     public PluginYamlObject(final @NotNull String filename, final boolean isCreate) {
         Plugin plugin = Main.getPlugin();

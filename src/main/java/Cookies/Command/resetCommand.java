@@ -3,11 +3,8 @@ package Cookies.Command;
 import Cookies.Main;
 import Cookies.Yaml.PlayerCoinsData;
 import Cookies.Yaml.PluginConfig;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.hover.content.Entity;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 
 public class resetCommand implements CommandExecutor {
 
@@ -74,13 +72,16 @@ public class resetCommand implements CommandExecutor {
                         for (int i = page ; i < page + 5 ; i++) {
                             try {
                                 final PlayerCoinsData data = players.get(i);
-                                player.sendMessage("玩家: " + data.getPlayer().getName() + " 的金錢有: " + data.getCoins());
+                                String leadMessage = Main.getPlugin().getPluginConfig().getLeadMessage();
+                                leadMessage = leadMessage.replace("{PLAYER}" , Objects.requireNonNull(data.getPlayer().getName()));
+                                leadMessage = leadMessage.replace("{COINS}" , "" + data.getCoins());
+                                player.sendMessage(PluginConfig.translate(leadMessage));
                             } catch (IndexOutOfBoundsException ignored) {}
                         }
-                        TextComponent message = new TextComponent("下一頁");
-                        message.setBold(true);
-                        message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/coins lead 2"));
-                        player.spigot().sendMessage(message);
+                        String translateNext = PluginConfig.translate(Main.getPlugin().getPluginConfig().getNextMessage());
+                        TextComponent nextPageMessage = new TextComponent(translateNext);
+                        nextPageMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/coins lead 2"));
+                        player.spigot().sendMessage(nextPageMessage);
                         return true;
                     }
 
@@ -90,15 +91,25 @@ public class resetCommand implements CommandExecutor {
                         for (int i = page; i < page + 5; i++) {
                             try {
                                 final PlayerCoinsData data = players.get(i);
-                                player.sendMessage("玩家: " + data.getPlayer().getName() + " 的金錢有: " + data.getCoins());
+                                String leadMessage = Main.getPlugin().getPluginConfig().getLeadMessage();
+                                leadMessage = leadMessage.replace("{PLAYER}" , Objects.requireNonNull(data.getPlayer().getName()));
+                                leadMessage = leadMessage.replace("{COINS}" , "" + data.getCoins());
+                                player.sendMessage(PluginConfig.translate(leadMessage));
                             } catch (IndexOutOfBoundsException ignored) { }
                         }
-                        TextComponent nextPageMessage = new TextComponent("下一頁");
-                        TextComponent previousPageMessage = new TextComponent(" " + "上一頁");
+
+                        String translateNext = PluginConfig.translate(Main.getPlugin().getPluginConfig().getNextMessage());
+                        String translatePrevious = PluginConfig.translate(Main.getPlugin().getPluginConfig().getPreviousMessage());
+
+                        TextComponent nextPageMessage = new TextComponent(translateNext);
+                        TextComponent previousMessage = new TextComponent(translatePrevious);
+
                         nextPageMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/coins lead " + (Integer.parseInt(args[1]) + 1)));
-                        previousPageMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND , "/coins lead " + (Integer.parseInt(args[1]) - 1)));
-                        nextPageMessage.addExtra(previousPageMessage);
+                        previousMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND , "/coins lead " + (Integer.parseInt(args[1]) - 1)));
+                        nextPageMessage.addExtra(previousMessage);
+
                         player.spigot().sendMessage(nextPageMessage);
+
                         return true;
                     }
             }

@@ -4,4 +4,9 @@ coinsAmountMessage: "&7<&6硬幣系統&7> &f你當前的硬幣數量為:&a {COIN
 setMessage: "&7<&6硬幣系統&7> &f你成功把 &a{PLAYER} &f的硬幣數量設置為&a {COINS}"
 resetMessage: "&7<&6硬幣系統&7> &f你重製了 &a{PLAYER}&f 的硬幣數量"
 
-helpMessage: "&7<&6硬幣系統&7> &f用法: &7/ec , /ec set <PlayerID> <Coins> , /ec resSet <PlayerID> , /ec reload"
+#排行榜
+leadMessage: "&e玩家: {PLAYER} 擁有 {COINS} 個硬幣"
+nextMessage: "&7<&e下一頁&7>"
+previousMessage: "&7<&e上一頁&7>"
+
+helpMessage: "&7<&6硬幣系統&7> &f用法: &7/coins , /coins set <PlayerID> <Coins> , /coins reSet <PlayerID> , /coins reload"
